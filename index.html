@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engelsiz Kariyer - Engelli Bireyler için İstihdam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f4f4f4;
+            --text-color: #333;
+            --header-bg: #2c3e50;
+            --header-text: white;
+            --nav-bg: #34495e;
+            --card-bg: white;
+            --card-shadow: rgba(0,0,0,0.1);
+            --btn-bg: #3498db;
+            --btn-text: white;
+            --accent-color: #e74c3c;
+            --gradient-start: #2c3e50;
+            --gradient-end: #3498db;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+        }
+        
+        .dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --header-bg: #1a1a2e;
+            --header-text: #f5f5f5;
+            --nav-bg: #161625;
+            --card-bg: #1e1e30;
+            --card-shadow: rgba(0,0,0,0.3);
+            --btn-bg: #2980b9;
+            --btn-text: #f5f5f5;
+            --gradient-start: #1a1a2e;
+            --gradient-end: #2980b9;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .animate-slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--header-text);
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            transform: scale(1.1);
+            transition: transform 0.5s ease;
+        }
+        
+        header:hover .header-image {
+            transform: scale(1);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            color: var(--header-text);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        nav a.active {
+            background-color: var(--btn-bg);
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .job-listings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .job-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px var(--card-shadow);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .job-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px var(--card-shadow);
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .job-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .job-card-header {
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            background-color: rgba(0,0,0,0.02);
+        }
+
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            object-fit: cover;
+            border: 3px solid var(--card-bg);
+            box-shadow: 0 4px 8px var(--card-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .job-card:hover .company-logo {
+            transform: scale(1.1);
+        }
+
+        .job-card-header h3 {
+            margin: 1rem 0 0.5rem;
+            font-size: 1.3rem;
+            color: var(--text-color);
+        }
+
+        .company-name {
+            color: #666;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .job-card p {
+            padding: 0.8rem 1.5rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .job-card p:hover {
+            background-color: rgba(0,0,0,0.02);
+        }
+
+        .job-card p i {
+            margin-right: 0.8rem;
+            width: 20px;
+            text-align: center;
+            color: var(--btn-bg);
+        }
+
+        .job-card-actions {
+            padding: 1.5rem;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .delete-btn {
+            background-color: var(--accent-color);
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .delete-btn:hover {
+            background-color: #c0392b;
+            transform: rotate(90deg);
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--card-bg), rgba(52, 152, 219, 0.1));
+            border-radius: 15px;
+            box-shadow: 0 4px 20px var(--card-shadow);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .filters:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--card-shadow);
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: var(--text-color);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .filter-group:hover label {
+            transform: translateY(-2px);
+            color: var(--btn-bg);
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+            padding-right: 2.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .filter-group select:hover {
+            border-color: var(--btn-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.15);
+        }
+
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--btn-bg);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+        }
+
+        /* Select container stili */
+        .select-container {
+            position: relative;
+            width: 100%;
+        }
+
+        /* Select option stilleri */
+        .filter-group select option {
+            padding: 1rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .filter-group select option:hover,
+        .filter-group select option:focus,
+        .filter-group select option:checked {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+        }
+
+        /* Firefox için özel stiller */
+        @-moz-document url-prefix() {
+            .filter-group select {
+                background-color: var(--bg-color);
+                border-radius: 12px;
+            }
+
+            .filter-group select option {
+                background-color: var(--card-bg);
+                padding: 1rem;
+            }
+        }
+
+        /* Webkit (Chrome, Safari, Edge) için özel stiller */
+        .filter-group select::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .filter-group select::-webkit-scrollbar-track {
+            background: var(--bg-color);
+            border-radius: 4px;
+        }
+
+        .filter-group select::-webkit-scrollbar-thumb {
+            background: var(--btn-bg);
+            border-radius: 4px;
+        }
+
+        .filter-group select::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .filter-group select {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .filter-group select option {
+                padding: 0.8rem;
+            }
+        }
+
+        .logo {
+            max-width: 150px;
+            margin-bottom: 1rem;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px var(--card-shadow);
+        }
+
+        .resource-section {
+            margin-top: 3rem;
+        }
+        
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .resource-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px var(--card-shadow);
+            text-align: center;
+        }
+        
+        .resource-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 1rem;
+            display: block;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--card-bg), rgba(52, 152, 219, 0.1));
+            margin: 2% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--btn-bg) var(--card-bg);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal .close {
+            position: sticky;
+            float: right;
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            margin: -1rem -1rem 1rem 1rem;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            padding-bottom: 5px;
+            line-height: 1;
+            z-index: 10;
+        }
+
+        .modal .close:hover {
+            transform: rotate(90deg);
+            background-color: #c0392b;
+        }
+
+        /* Webkit scrollbar styles */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: var(--card-bg);
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--btn-bg);
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        /* Form Styles */
+        .form-group {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .form-group:hover {
+            transform: translateY(-5px);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: var(--accent-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--btn-bg);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .form-group input[type="file"] {
+            display: none;
+        }
+
+        .file-upload-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .file-upload-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--btn-bg), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .file-upload-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .file-upload-button i {
+            font-size: 1.2rem;
+        }
+
+        .file-name {
+            margin-top: 0.8rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .file-name.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .file-name i {
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .file-upload-button {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        button[type="submit"] {
+            background: linear-gradient(135deg, var(--btn-bg), var(--accent-color));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 5% auto;
+                padding: 1.5rem;
+                width: 95%;
+                max-height: 85vh;
+            }
+
+            .modal .close {
+                margin: -0.5rem -0.5rem 0.5rem 0.5rem;
+            }
+
+            .form-group {
+                padding: 1rem;
+            }
+
+            button[type="submit"] {
+                padding: 0.8rem 1.5rem;
+            }
+        }
+
+        .accessibility-options {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem;
+            border-radius: 50px;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 1000;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 12px var(--card-shadow);
+        }
+
+        .accessibility-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: transparent;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .accessibility-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+        }
+
+        .accessibility-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+        }
+
+        .accessibility-btn:hover svg {
+            transform: rotate(180deg);
+        }
+
+        /* Tab Styles */
+        .tab-container {
+            margin-top: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            background-color: var(--card-bg);
+            border: none;
+            border-radius: 10px;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px var(--card-shadow);
+        }
+
+        .tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--card-shadow);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, var(--btn-bg), var(--accent-color));
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Status Badge Styles */
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .status-badge.pending {
+            background-color: #f1c40f;
+            color: #000;
+        }
+
+        .status-badge.accepted {
+            background-color: #2ecc71;
+            color: #fff;
+        }
+
+        .status-badge.rejected {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+
+        /* Modern Başvuru Modalı için ek stiller (index.html) */
+        #applicationModal .modal-content {
+            background: #18182a;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            padding: 2.5rem 2rem 2rem 2rem;
+            color: #fff;
+            position: relative;
+        }
+        #applicationModal .close {
+            position: absolute;
+            right: 24px;
+            top: 18px;
+            color: #fff;
+            background: #e74c3c;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            z-index: 10;
+        }
+        #applicationModal .close:hover {
+            background: #c0392b;
+            color: #fff;
+        }
+        #applicationModal h2 {
+            margin-top: 0;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        #applicationModal .form-group {
+            background: #23233a;
+            border-radius: 14px;
+            padding: 1.2rem 1rem 1rem 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        #applicationModal .form-group label {
+            color: #ff5e62;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+        #applicationModal .form-group input,
+        #applicationModal .form-group textarea {
+            background: #292943;
+            color: #e0e0e0;
+            border: 1.5px solid #36365a;
+            border-radius: 9px;
+            padding: 0.85rem 1rem;
+            font-size: 1rem;
+            margin: 0;
+            margin-bottom: 0.1rem;
+            box-shadow: none;
+            outline: none;
+            transition: border 0.2s, box-shadow 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        #applicationModal .form-group input:focus,
+        #applicationModal .form-group textarea:focus {
+            border: 1.5px solid #27ae60;
+            box-shadow: 0 0 0 2px #27ae6040;
+        }
+        #applicationModal .form-group input::placeholder,
+        #applicationModal .form-group textarea::placeholder {
+            color: #b0b0c3;
+            opacity: 1;
+            font-size: 0.98em;
+        }
+        #applicationModal .file-upload-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #applicationModal .file-upload-button {
+            background: #27ae60;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.55rem 1.1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: none;
+            letter-spacing: 0.01em;
+            transition: background 0.18s;
+            min-width: 0;
+            height: auto;
+        }
+        #applicationModal .file-upload-button:hover {
+            background: #219150;
+        }
+        #applicationModal .file-upload-button i {
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <a href="#main-content" class="skip-link" style="position: absolute; left: -9999px; z-index: 999; padding: 1em; background: var(--header-bg); color: var(--header-text);">Skip to main content</a>
+
+    <div class="accessibility-options">
+        <button onclick="toggleDarkMode()" class="accessibility-btn" title="Koyu/Aydınlık Mod Değiştir" id="theme-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="theme-icon">
+                <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+            </svg>
+        </button>
+    </div>
+
+    <header class="animate-fade-in">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80" alt="Header background" class="header-image">
+        <div class="header-content animate-slide-up">
+            <h1>Engelsiz Kariyer</h1>
+            <p>Engelli bireyler için iş fırsatları ve kariyer gelişimi platformu</p>
+        </div>
+    </header>
+
+    <nav class="animate-slide-down">
+        <ul>
+            <li><a href="ana-sayfa.html">Ana Sayfa</a></li>
+            <li><a href="index.html" class="active">İş İlanları</a></li>
+            <li><a href="basvurularim.html">Başvurularım</a></li>
+            <li><a href="takas.html">Takas</a></li>
+            <li><a href="sosyal-etkinlikler.html">Sosyal Etkinlikler</a></li>
+            <li><a href="javascript:void(0)" onclick="showSupportModal()">Destek</a></li>
+        </ul>
+    </nav>
+
+    <main class="container animate-fade-in">
+        <div class="filters animate-slide-up">
+            <div class="filter-group">
+                <label for="locationFilter">Konum</label>
+                <div class="select-container">
+                    <select id="locationFilter" onchange="filterJobs()">
+                    </select>
+                </div>
+            </div>
+            <div class="filter-group">
+                <label for="sectorFilter">Sektör</label>
+                <div class="select-container">
+                    <select id="sectorFilter" onchange="filterJobs()">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="job-listings">
+            <!-- Job cards will be added here dynamically -->
+        </div>
+
+        <div class="resource-section animate-fade-in">
+            <h2>İyi Bir İş İlanı Nasıl Yazılır?</h2>
+            <div class="resource-grid">
+                <div class="resource-card animate-slide-up">
+                    <h3><i class="fas fa-bullseye"></i> Net Olun</h3>
+                    <p>İş tanımını, gereksinimleri ve sorumlulukları açıkça belirtin. Belirsiz ifadelerden kaçının.</p>
+                </div>
+                <div class="resource-card animate-slide-up">
+                    <h3><i class="fas fa-universal-access"></i> Erişilebilirlik</h3>
+                    <p>İş yerindeki erişilebilirlik özelliklerini ve sunulan destekleri detaylı olarak açıklayın.</p>
+                </div>
+                <div class="resource-card animate-slide-up">
+                    <h3><i class="fas fa-handshake"></i> Kapsayıcı Dil</h3>
+                    <p>Herkesin kendini dahil hissedebileceği, ayrımcı olmayan bir dil kullanın.</p>
+                </div>
+                <div class="resource-card animate-slide-up">
+                    <h3><i class="fas fa-chart-line"></i> Gelişim Fırsatları</h3>
+                    <p>Kariyer gelişimi, eğitim ve mentorluk gibi fırsatları vurgulayın.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- İş Başvuru Formu Modal -->
+    <div id="applicationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('applicationModal')">&times;</span>
+            <h2>İş Başvurusu</h2>
+            <form id="applicationForm" onsubmit="submitApplication(event)">
+                <div class="form-group">
+                    <label for="fullName">Ad Soyad</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-posta</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefon</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="resume">Özgeçmiş (PDF)</label>
+                    <div class="file-upload-container">
+                        <input type="file" id="resume" name="resume" accept=".pdf" style="display:none;" onchange="updateResumeLabel()">
+                        <label for="resume" class="file-upload-button" id="resumeLabel" style="margin:0;">
+                            <i class="fas fa-upload"></i> Özgeçmiş Seç
+                        </label>
+                        <span id="resumeFileName" style="color:#b2ffcc; font-size:0.97rem;"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="experience">Deneyim</label>
+                    <textarea id="experience" name="experience" rows="5" placeholder="İlgili iş deneyimlerinizi kısaca açıklayın"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="accommodation">İhtiyaç Duyduğunuz Destekler (Varsa)</label>
+                    <textarea id="accommodation" name="accommodation" rows="3" placeholder="İşyerinde ihtiyaç duyabileceğiniz özel düzenlemeler"></textarea>
+                </div>
+                <input type="hidden" id="jobTitle" name="jobTitle">
+                <input type="hidden" id="applicantCompanyName" name="companyName">
+                <input type="hidden" id="jobId" name="jobId">
+                <button type="submit" class="btn">Başvuruyu Gönder</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- İşveren Kayıt Modal -->
+    <div id="employerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('employerModal')">&times;</span>
+            <h2>İşveren Kaydı</h2>
+            <form id="employerForm" onsubmit="submitEmployer(event)">
+                <div class="form-group">
+                    <label for="employerCompanyName">Şirket Adı</label>
+                    <input type="text" id="employerCompanyName" name="companyName" required>
+                </div>
+                <div class="form-group">
+                    <label for="companyEmail">Kurumsal E-posta</label>
+                    <input type="email" id="companyEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="companyPhone">Telefon</label>
+                    <input type="tel" id="companyPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="companySector">Sektör</label>
+                    <select id="companySector" required>
+                        <option value="">Seçiniz...</option>
+                        <option value="Teknoloji & Bilişim">Teknoloji & Bilişim</option>
+                        <option value="Eğitim & Danışmanlık">Eğitim & Danışmanlık</option>
+                        <option value="İdari & Ofis İşleri">İdari & Ofis İşleri</option>
+                        <option value="Üretim & El Sanatları">Üretim & El Sanatları</option>
+                        <option value="Sanat & Medya">Sanat & Medya</option>
+                        <option value="Sağlık & Sosyal Hizmetler">Sağlık & Sosyal Hizmetler</option>
+                        <option value="E-Ticaret & Girişimcilik">E-Ticaret & Girişimcilik</option>
+                        <option value="Evden Çalışma Modelleri">Evden Çalışma Modelleri</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="companyAccommodations">Sunulan Destekler</label>
+                    <textarea id="companyAccommodations" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn">Kayıt Ol</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Destek Modal -->
+    <div id="supportModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('supportModal')">&times;</span>
+            <h2>Destek</h2>
+            <div class="support-content">
+                <p>Bize Ulaşın: umurbaysall@gmail.com | Telefon: 543 210 98 76</p>
+            </div>
+        </div>
+    </div>
+
+    <footer style="background-color: var(--header-bg); color: var(--header-text); text-align: center; padding: 1rem; margin-top: 2rem;">
+        <p>Bize Ulaşın: umurbaysall@gmail.com | Telefon: 543 210 98 76</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+    function updateResumeLabel() {
+        var input = document.getElementById('resume');
+        var fileNameSpan = document.getElementById('resumeFileName');
+        if (input.files && input.files.length > 0) {
+            fileNameSpan.textContent = input.files[0].name;
+        } else {
+            fileNameSpan.textContent = '';
+        }
+    }
+
+    // İş ilanı detaylarına girildiğinde navigation menüsünü güncelle
+    function showJobDetails(jobId) {
+        // Navigation menüsünü güncelle
+        const nav = document.querySelector('nav ul');
+        nav.innerHTML = `
+            <li><a href="ana-sayfa.html">Ana Sayfa</a></li>
+            <li><a href="index.html">İş İlanları</a></li>
+            <li><a href="basvurularim.html">Başvurularım</a></li>
+            <li><a href="takas.html">Takas</a></li>
+            <li><a href="sosyal-etkinlikler.html">Sosyal Etkinlikler</a></li>
+            <li><a href="javascript:void(0)" onclick="showSupportModal()">Destek</a></li>
+        `;
+        
+        // İş ilanı detaylarını göster
+        // ... mevcut iş ilanı detay gösterme kodu ...
+    }
+    </script>
+</body>
+</html>

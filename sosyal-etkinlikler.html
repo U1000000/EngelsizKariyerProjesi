@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sosyal Etkinlikler - Engelsiz Kariyer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f4f4f4;
+            --text-color: #333;
+            --header-bg: #2c3e50;
+            --header-text: white;
+            --nav-bg: #34495e;
+            --card-bg: white;
+            --card-shadow: rgba(0,0,0,0.1);
+            --btn-bg: #3498db;
+            --btn-text: white;
+            --accent-color: #9b59b6;
+            --event-past: #95a5a6;
+            --event-upcoming: #27ae60;
+            --event-today: #e74c3c;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+        }
+        
+        .dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --header-bg: #1a1a2e;
+            --header-text: #f5f5f5;
+            --nav-bg: #161625;
+            --card-bg: #1e1e30;
+            --card-shadow: rgba(0,0,0,0.3);
+            --btn-bg: #2980b9;
+            --btn-text: #f5f5f5;
+            --event-past: #5d6d7e;
+            --event-upcoming: #1e8449;
+            --event-today: #c0392b;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--header-bg), var(--btn-bg));
+            color: var(--header-text);
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            transform: scale(1.1);
+            transition: transform 0.5s ease;
+        }
+        
+        header:hover .header-image {
+            transform: scale(1);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        .header-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        nav {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            color: var(--header-text);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        nav a.active {
+            background-color: var(--btn-bg);
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .accessibility-options {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem;
+            border-radius: 50px;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 1000;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 12px var(--card-shadow);
+        }
+
+        .accessibility-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: transparent;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .accessibility-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+        }
+
+        .accessibility-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+        }
+
+        .accessibility-btn:hover svg {
+            transform: rotate(180deg);
+        }
+
+        .btn {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Etkinlik Takvimi Stilleri */
+        .calendar-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--card-shadow);
+        }
+
+        .month-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .month-selector button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .month-selector button:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .current-month {
+            font-size: 1.5rem;
+            font-weight: bold;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .view-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .view-btn.active {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            border-color: var(--btn-bg);
+        }
+
+        /* Etkinlik Kartları */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .event-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px var(--card-shadow);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px var(--card-shadow);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .event-content {
+            padding: 1.5rem;
+        }
+
+        .event-date {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .event-title {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.3rem;
+        }
+
+        .event-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .event-description {
+            margin-bottom: 1.5rem;
+        }
+
+        .event-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .event-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: bold;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .status-past .status-indicator {
+            background-color: var(--event-past);
+        }
+
+        .status-upcoming .status-indicator {
+            background-color: var(--event-upcoming);
+        }
+
+        .status-today .status-indicator {
+            background-color: var(--event-today);
+        }
+
+        .status-past {
+            color: var(--event-past);
+        }
+
+        .status-upcoming {
+            color: var(--event-upcoming);
+        }
+
+        .status-today {
+            color: var(--event-today);
+        }
+
+        /* Takvim Görünümü */
+        .calendar-view {
+            display: block;
+            max-width: 100%;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+
+        .calendar {
+            width: 100%;
+            table-layout: fixed; /* Sabit genişlikli sütunlar için */
+            border-collapse: separate;
+            border-spacing: 2px;
+            margin: 2rem auto;
+        }
+
+        .calendar th {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 4px;
+            width: calc(100% / 7); /* Her sütun eşit genişlikte */
+        }
+
+        .calendar td {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-shadow);
+            padding: 0.5rem;
+            height: 120px;
+            vertical-align: top;
+            border-radius: 4px;
+            width: calc(100% / 7); /* Her sütun eşit genişlikte */
+            max-width: calc(100% / 7);
+            position: relative;
+        }
+
+        .calendar .day-number {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            position: absolute;
+            top: 0.3rem;
+            left: 0.5rem;
+        }
+
+        .day-events {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-height: 90px;
+            overflow-y: auto;
+            margin-top: 1.8rem; /* Gün numarasına yer açmak için */
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color) var(--card-bg);
+        }
+
+        .day-events::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .day-events::-webkit-scrollbar-track {
+            background: var(--card-bg);
+        }
+
+        .day-events::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .event-title-small {
+            padding: 4px 8px;
+            margin: 2px 0;
+            border-radius: 4px;
+            background-color: var(--accent-color);
+            color: white;
+            font-size: 0.8em;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            min-height: 24px;
+        }
+
+        .event-title-small:hover {
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .event-title-small:hover::after {
+            content: attr(title);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -30px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px var(--card-shadow);
+            z-index: 1000;
+        }
+
+        .event-title-small i {
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+
+        .event-title-small span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1;
+        }
+
+        .event-title-small .accessibility-icons {
+            display: flex;
+            gap: 2px;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar th, .calendar td {
+                padding: 0.25rem;
+                font-size: 0.9rem;
+            }
+            
+            .calendar td {
+                height: 100px;
+            }
+            
+            .calendar-controls {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .current-month {
+                font-size: 1.2rem;
+                min-width: 150px;
+            }
+
+            .event-title-small {
+                font-size: 0.75em;
+                padding: 3px 6px;
+            }
+
+            .event-title-small i {
+                font-size: 0.8em;
+            }
+
+            .day-events {
+                max-height: 70px;
+            }
+        }
+
+        footer {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .upcoming-events {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px var(--card-shadow);
+        }
+
+        .upcoming-events h2 {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .upcoming-events-list {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+
+        .upcoming-event-card {
+            min-width: 300px;
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px var(--card-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .upcoming-event-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .upcoming-event-date {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .upcoming-event-title {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .upcoming-event-location {
+            color: var(--text-color);
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .upcoming-event-time {
+            color: var(--text-color);
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .upcoming-event-accessibility {
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .upcoming-event-accessibility i {
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .upcoming-events-list {
+                flex-direction: column;
+            }
+
+            .upcoming-event-card {
+                min-width: auto;
+                width: 100%;
+            }
+        }
+
+        /* Filtreler */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px var(--card-shadow);
+        }
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: var(--text-color);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .filter-group:hover label {
+            transform: translateY(-2px);
+            color: var(--btn-bg);
+        }
+        .filter-group select {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+            padding-right: 2.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .filter-group select:hover {
+            border-color: var(--btn-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.15);
+        }
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--btn-bg);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+        }
+        .filter-group select option {
+            padding: 1rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .filter-group select option:hover,
+        .filter-group select option:focus,
+        .filter-group select option:checked {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+        }
+
+        /* Duyarlı Tasarım */
+        @media (max-width: 768px) {
+            .filters {
+                flex-direction: column;
+                padding: 1rem;
+            }
+        }
+
+        /* --- Remove any extra/unwanted elements under upcoming events section --- */
+        .upcoming-events-list > *:nth-child(n+4) {
+            display: none !important;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        .modal.active {
+            display: block;
+        }
+        #eventModal.active,
+        #registerModal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: linear-gradient(135deg, var(--card-bg), rgba(52, 152, 219, 0.1));
+            margin: 0 auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--btn-bg) var(--card-bg);
+        }
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .modal .close {
+            position: sticky;
+            float: right;
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            margin: -1rem -1rem 1rem 1rem;
+            background-color: #e74c3c !important;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
+            border: 3px solid var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            z-index: 10;
+            position: relative;
+            overflow: visible;
+            transform-origin: 50% 50%;
+            transform: rotate(0deg);
+        }
+        .modal .close:hover {
+            background-color: #c0392b !important;
+            transform: rotate(90deg);
+        }
+        .modal .close span {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            pointer-events: none;
+            font-size: 1.5rem;
+        }
+        @media (max-width: 600px) {
+            .modal-content {
+                padding: 1rem;
+                width: 98%;
+                max-width: 98vw;
+            }
+        }
+
+        /* Etkinlik Kayıt Formu Modern Tasarım */
+        #registerModal .modal-content {
+            background: linear-gradient(135deg, var(--card-bg), var(--bg-color));
+            box-shadow: 0 8px 32px 0 rgba(52, 152, 219, 0.15);
+            border-radius: 18px;
+            padding: 2.5rem 2rem 2rem 2rem;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+        #registerModal h2 {
+            display: block;
+            width: 100%;
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            margin-left: 0;
+            padding-left: 0;
+            margin-right: 0;
+            padding-right: 0;
+        }
+        #eventRegistrationForm {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        #eventRegistrationForm .form-group {
+            margin-bottom: 0;
+        }
+        #eventRegistrationForm label {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.4rem;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+        #eventRegistrationForm input,
+        #eventRegistrationForm textarea {
+            width: 100%;
+            padding: 0.9rem 1.1rem;
+            border-radius: 10px;
+            border: 1.5px solid #d0d0d0;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: border 0.2s, box-shadow 0.2s;
+            box-sizing: border-box;
+            outline: none;
+        }
+        #eventRegistrationForm input:focus,
+        #eventRegistrationForm textarea:focus {
+            border: 1.5px solid var(--btn-bg);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.15);
+        }
+        #eventRegistrationForm textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
+        #eventRegistrationForm .form-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+        #eventRegistrationForm .btn {
+            width: 100%;
+            padding: 1rem 0;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--btn-bg), var(--accent-color));
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.10);
+        }
+        #eventRegistrationForm .btn:hover {
+            background: linear-gradient(90deg, var(--accent-color), var(--btn-bg));
+            color: var(--btn-text);
+        }
+        @media (max-width: 600px) {
+            #registerModal .modal-content {
+                padding: 1.2rem 0.5rem;
+                max-width: 98vw;
+            }
+            #eventRegistrationForm input,
+            #eventRegistrationForm textarea {
+                font-size: 0.95rem;
+                padding: 0.7rem 0.7rem;
+            }
+            #eventRegistrationForm .btn {
+                font-size: 1rem;
+                padding: 0.8rem 0;
+            }
+        }
+
+        .joined-events {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px var(--card-shadow);
+        }
+        .joined-events h2 {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        .joined-events-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .joined-event-card {
+            min-width: 320px;
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            padding: 1.2rem 1rem;
+            box-shadow: 0 2px 4px var(--card-shadow);
+            transition: transform 0.3s ease;
+            flex: 1 1 320px;
+            max-width: 400px;
+            position: relative;
+        }
+        .joined-event-card:hover {
+            transform: translateY(-5px);
+        }
+        .joined-event-title {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .joined-event-info {
+            color: var(--text-color);
+            font-size: 0.98rem;
+            margin-bottom: 0.3rem;
+        }
+        .joined-event-accessibility {
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .joined-event-accessibility i {
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+        @media (max-width: 768px) {
+            .joined-events-list {
+                flex-direction: column;
+            }
+            .joined-event-card {
+                min-width: auto;
+                width: 100%;
+            }
+        }
+
+        .delete-btn {
+            background-color: var(--accent-color);
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: none;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            margin: 0;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+            transform: rotate(-10deg) scale(1.08);
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <a href="#main-content" class="skip-link" style="position: absolute; left: -9999px; z-index: 999; padding: 1em; background: var(--header-bg); color: var(--header-text);">Skip to main content</a>
+    <div class="accessibility-options">
+        <button onclick="toggleDarkMode()" class="accessibility-btn" title="Koyu/Aydınlık Mod Değiştir" id="theme-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="theme-icon">
+                <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+            </svg>
+        </button>
+    </div>
+
+    <header class="animate-fade-in">
+        <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80" alt="Sosyal etkinlik görseli" class="header-image">
+        <div class="header-content animate-slide-up">
+            <h1>Sosyal Etkinlikler</h1>
+            <p>Engelsiz Kariyer ile sosyalleşin, yeni insanlarla tanışın ve eğlenin!</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="ana-sayfa.html">Ana Sayfa</a></li>
+            <li><a href="index.html">İş İlanları</a></li>
+            <li><a href="basvurularim.html">Başvurularım</a></li>
+            <li><a href="takas.html">Takas</a></li>
+            <li><a href="sosyal-etkinlikler.html" class="active">Sosyal Etkinlikler</a></li>
+            <li><a href="javascript:void(0)" onclick="showSupportModal()">Destek</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section>
+            <div class="calendar-controls">
+                <div class="month-selector">
+                    <button id="prevMonth" title="Önceki Ay"><i class="fas fa-chevron-left"></i></button>
+                    <div class="current-month" id="currentMonth">Ocak 2025</div>
+                    <button id="nextMonth" title="Sonraki Ay"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="eventTypeFilter">Etkinlik Türü:</label>
+                    <select id="eventTypeFilter">
+                        <option value="all">Tümü</option>
+                        <option value="karaoke">Karaoke</option>
+                        <option value="sinema">Sinema</option>
+                        <option value="workshop">Atölye Çalışması</option>
+                        <option value="game">Oyun Etkinliği</option>
+                        <option value="sports">Spor Etkinliği</option>
+                        <option value="art">Sanat Etkinliği</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="locationFilter">Konum:</label>
+                    <select id="locationFilter">
+                        <option value="all">Tümü</option>
+                        <option value="İstanbul">İstanbul</option>
+                        <option value="Ankara">Ankara</option>
+                        <option value="İzmir">İzmir</option>
+                        <option value="Online">Çevrimiçi</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="accessibilityFilter">Erişilebilirlik:</label>
+                    <select id="accessibilityFilter">
+                        <option value="all">Tümü</option>
+                        <option value="wheelchair">Tekerlekli Sandalye Erişimi</option>
+                        <option value="hearing">İşitme Engelli Dostu</option>
+                        <option value="visual">Görme Engelli Dostu</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="calendarView" class="calendar-view">
+                <table class="calendar">
+                    <thead>
+                        <tr>
+                            <th>Pazartesi</th>
+                            <th>Salı</th>
+                            <th>Çarşamba</th>
+                            <th>Perşembe</th>
+                            <th>Cuma</th>
+                            <th>Cumartesi</th>
+                            <th>Pazar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendarBody">
+                        <!-- Takvim JavaScript ile oluşturulacak -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Yaklaşan Etkinlikler Bölümü -->
+            <div class="upcoming-events">
+                <h2>Yaklaşan Etkinlikler</h2>
+                <div id="upcomingEventsList" class="upcoming-events-list">
+                    <!-- Yaklaşan etkinlikler JavaScript ile eklenecek -->
+                </div>
+            </div>
+
+            <!-- Katıldığım Etkinlikler Bölümü -->
+            <div class="joined-events">
+                <h2>Katıldığım Etkinlikler</h2>
+                <div id="joinedEventsList" class="joined-events-list">
+                    <!-- Katıldığım etkinlikler JavaScript ile eklenecek -->
+                </div>
+            </div>
+
+            <div id="eventsGrid" class="events-grid" style="display: none;">
+                <!-- Etkinlik kartları JavaScript ile eklenecek -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Etkinlik Detay Modal -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('eventModal')">&times;</span>
+            <h2 id="modalEventTitle"></h2>
+            <p><strong>Tarih:</strong> <span id="modalEventDate"></span></p>
+            <p><strong>Saat:</strong> <span id="modalEventTime"></span></p>
+            <p><strong>Konum:</strong> <span id="modalEventLocation"></span></p>
+            <p><strong>Erişilebilirlik:</strong> <span id="modalEventAccessibility"></span></p>
+            <p id="modalEventDescription"></p>
+            <div class="form-actions">
+                <button id="registerEventBtn" class="btn">Etkinliğe Katıl</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Etkinlik Kayıt Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Etkinlik Kaydı</h2>
+            <form id="eventRegistrationForm" onsubmit="submitEventRegistration(event)">
+                <div class="form-group">
+                    <label for="fullName">Ad Soyad</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-posta</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefon</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="specialNeeds">Özel İhtiyaçlar (Varsa)</label>
+                    <textarea id="specialNeeds" name="specialNeeds" rows="3" placeholder="Etkinliğe katılım için ihtiyaç duyduğunuz özel düzenlemeler"></textarea>
+                </div>
+                <input type="hidden" id="eventId" name="eventId">
+                <div class="form-actions">
+                    <button type="submit" class="btn">Kaydı Tamamla</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Destek Modal -->
+    <div id="supportModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('supportModal')"><span>×</span></span>
+            <h2>Destek</h2>
+            <div class="support-content">
+                <p>Bize Ulaşın: umurbaysall@gmail.com | Telefon: 543 210 98 76</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="animate-fade-in">
+        <p>Bize Ulaşın: umurbaysall@gmail.com | Telefon: 543 210 98 76</p>
+    </footer>
+
+    <script>
+    function updateThemeIcon() {
+        const themeIcon = document.getElementById('theme-icon');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        if (isDarkMode) {
+            themeIcon.innerHTML = '<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>';
+        } else {
+            themeIcon.innerHTML = '<path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>';
+        }
+    }
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        updateThemeIcon();
+        // Tercihi kaydet
+        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedDarkMode = localStorage.getItem('darkMode');
+        if (savedDarkMode === 'true') {
+            document.body.classList.add('dark-mode');
+        } else if (savedDarkMode === 'false') {
+            document.body.classList.remove('dark-mode');
+        }
+        updateThemeIcon();
+    });
+    </script>
+    <script src="sosyal-etkinlikler.js"></script>
+</body>
+</html> 

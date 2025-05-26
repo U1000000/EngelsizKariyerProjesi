@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engelsiz Kariyer - Ana Sayfa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f4f4f4;
+            --text-color: #333;
+            --header-bg: #2c3e50;
+            --header-text: white;
+            --nav-bg: #34495e;
+            --card-bg: white;
+            --card-shadow: rgba(0,0,0,0.1);
+            --btn-bg: #3498db;
+            --btn-text: white;
+            --accent-color: #e74c3c;
+            --gradient-start: #2c3e50;
+            --gradient-end: #3498db;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+        }
+        
+        .dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --header-bg: #1a1a2e;
+            --header-text: #f5f5f5;
+            --nav-bg: #161625;
+            --card-bg: #1e1e30;
+            --card-shadow: rgba(0,0,0,0.3);
+            --btn-bg: #2980b9;
+            --btn-text: #f5f5f5;
+            --gradient-start: #1a1a2e;
+            --gradient-end: #2980b9;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes rotateIn {
+            from { transform: rotate(-180deg) scale(0); opacity: 0; }
+            to { transform: rotate(0) scale(1); opacity: 1; }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 1s ease-out;
+        }
+
+        .animate-slide-left {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .animate-slide-right {
+            animation: slideInRight 1s ease-out;
+        }
+
+        .animate-scale {
+            animation: scaleIn 1s ease-out;
+        }
+
+        .animate-rotate {
+            animation: rotateIn 1s ease-out;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: slideUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            animation: slideUp 1s ease-out 0.3s backwards;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator:hover {
+            opacity: 1;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--nav-bg);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            color: var(--header-text);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        nav a.active {
+            background-color: var(--btn-bg);
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-color);
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--btn-bg);
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        .section-title:hover h2::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px var(--card-shadow);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 8px 16px var(--card-shadow);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--btn-bg);
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover i {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .creator-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .creator-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            to {
+                left: 100%;
+            }
+        }
+
+        .creator-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .creator-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .creator-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: linear-gradient(135deg, var(--card-bg), rgba(52, 152, 219, 0.1));
+            margin: 2% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--btn-bg) var(--card-bg);
+        }
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .modal .close {
+            position: sticky;
+            float: right;
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            margin: -1rem -1rem 1rem 1rem;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            padding-bottom: 5px;
+            line-height: 1;
+            z-index: 10;
+        }
+        .modal .close:hover {
+            transform: rotate(90deg);
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Engelsiz Kariyer</h1>
+            <p>Engelli bireyler için iş fırsatları ve kariyer gelişimi platformu</p>
+        </div>
+        <a href="#main-content" class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="ana-sayfa.html" class="active">Ana Sayfa</a></li>
+            <li><a href="index.html">İş İlanları</a></li>
+            <li><a href="basvurularim.html">Başvurularım</a></li>
+            <li><a href="takas.html">Takas</a></li>
+            <li><a href="sosyal-etkinlikler.html">Sosyal Etkinlikler</a></li>
+            <li><a href="javascript:void(0)" onclick="showSupportModal()">Destek</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content" class="container">
+        <section class="section">
+            <div class="section-title animate-slide-up">
+                <h2>Hakkımızda</h2>
+                <p>Engelsiz Kariyer, engelli bireylerin iş hayatında eşit fırsatlara sahip olmasını sağlamak için kurulmuş bir platformdur.</p>
+            </div>
+            <div class="grid">
+                <div class="card animate-slide-left">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Misyonumuz</h3>
+                    <p>Engelli bireylerin yeteneklerini ve potansiyellerini en üst düzeye çıkarmalarına yardımcı olmak, işverenlerle engelli adayları buluşturmak ve kapsayıcı bir iş ortamı oluşturmak.</p>
+                </div>
+                <div class="card animate-slide-up">
+                    <i class="fas fa-eye"></i>
+                    <h3>Vizyonumuz</h3>
+                    <p>Engelli bireylerin iş hayatında tam ve eşit katılımını sağlayan, toplumda farkındalık yaratan ve örnek teşkil eden bir platform olmak.</p>
+                </div>
+                <div class="card animate-slide-right">
+                    <i class="fas fa-heart"></i>
+                    <h3>Değerlerimiz</h3>
+                    <p>Eşitlik, kapsayıcılık, şeffaflık, sürdürülebilirlik ve sürekli gelişim temel değerlerimizi oluşturur.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-title animate-slide-up">
+                <h2>Hedeflerimiz</h2>
+                <p>Platformumuzun temel hedefleri</p>
+            </div>
+            <div class="grid">
+                <div class="card animate-slide-left">
+                    <i class="fas fa-handshake"></i>
+                    <h3>İstihdam Fırsatları</h3>
+                    <p>Engelli bireylere uygun iş fırsatları sunmak ve işverenlerle adayları etkin bir şekilde eşleştirmek.</p>
+                </div>
+                <div class="card animate-slide-up">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Eğitim ve Gelişim</h3>
+                    <p>Kariyer gelişimi için gerekli eğitim ve mentorluk programları sunmak.</p>
+                </div>
+                <div class="card animate-slide-right">
+                    <i class="fas fa-users"></i>
+                    <h3>Topluluk Oluşturma</h3>
+                    <p>Engelli bireyler arasında dayanışma ve bilgi paylaşımını teşvik eden bir topluluk oluşturmak.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="creator-section animate-fade-in">
+        <div class="creator-content">
+            <h2 class="animate-slide-up">Platform Yapımcısı</h2>
+            <p class="animate-slide-up">Engelsiz Kariyer platformu, Umur tarafından engelli bireylerin iş hayatında karşılaştığı zorlukları aşmak ve onlara destek olmak amacıyla geliştirilmiştir.</p>
+            <p class="animate-slide-up">İletişim: umurbaysall@gmail.com | Telefon: 543 210 98 76</p>
+        </div>
+    </section>
+
+    <!-- Destek Modal -->
+    <div id="supportModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('supportModal')">&times;</span>
+            <h2>Destek</h2>
+            <div class="support-content">
+                <p>Bize Ulaşın: umurbaysall@gmail.com | Telefon: 543 210 98 76</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Intersection Observer for card animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Observe all cards
+        document.querySelectorAll('.card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Smooth scroll for the scroll indicator
+        document.querySelector('.scroll-indicator').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('#main-content').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        function showSupportModal() {
+            var modal = document.getElementById('supportModal');
+            if (modal) {
+                modal.style.display = 'block';
+            }
+        }
+        function closeModal(id) {
+            var modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html> 
