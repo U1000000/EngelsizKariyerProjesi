@@ -1,1 +1,1 @@
-this project has been discontinued due to being inadequate to qualify in a lame ass competition. have fun continuing it or skidding it (though it has small flaws on UI).
+this project has been discontinued due to being inadequate to qualify in a lame ass competition. I normally don't share source codes of my projects but this pain in the ass is an embarrassment for me. have fun continuing it or skidding it (though it has small flaws on UI).
