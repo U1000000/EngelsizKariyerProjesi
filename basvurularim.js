@@ -1,4 +1,4 @@
-// Tema kontrolü
+// Tema kontrolü.
 let isDarkMode = true;
 
 // Başvuruları saklamak için
