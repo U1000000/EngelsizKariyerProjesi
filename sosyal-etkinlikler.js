@@ -1,4 +1,4 @@
-// Temayı kontrol etmek için
+// Temayı kontrol etmek için.
 let isDarkMode = document.body.classList.contains('dark-mode');
 
 // Etkinlik kayıtlarını saklamak için
