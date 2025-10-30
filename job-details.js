@@ -1,5 +1,5 @@
 // Temayı kontrol etmek için
-let isDarkMode = true; // Karanlık mod başlangıçta açık
+let isDarkMode = true; // Karanlık mod başlangıçta açık.
 
 // Geçerli iş
 let currentJob = null;
