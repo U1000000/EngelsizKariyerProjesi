@@ -1,4 +1,4 @@
-// Temayı kontrol etmek için
+// Temayı kontrol etmek için.
 let isDarkMode = true; // Karanlık mod başlangıçta açık
 
 // Takas ilanlarını saklamak için
@@ -313,4 +313,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     };
+
 }); 
